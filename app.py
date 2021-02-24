@@ -6,7 +6,7 @@ from flask_login import LoginManager, login_user, login_required, logout_user, c
 from flask_socketio import SocketIO, join_room, leave_room
 from pymongo.errors import DuplicateKeyError
 
-from venv.db import get_user, save_user, save_room, add_room_members, get_rooms_for_user, get_room, is_room_member, \
+from venv.dbqueries import get_user, save_user, save_room, add_room_members, get_rooms_for_user, get_room, is_room_member, \
     get_room_members, is_room_admin, update_room, remove_room_members, save_message, get_messages
 
 app = Flask(__name__)
