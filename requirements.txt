@@ -8,3 +8,4 @@ numpy==1.19.1
 opencv-python==4.4.0.40
 Werkzeug==1.0.1
 pymongo==3.11.3
+flask-login==0.5.0
