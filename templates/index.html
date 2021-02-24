@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+.strt{
+        width: 350px;
+        overflow: hidden;
+        margin: auto;
+        margin: 20 0 0 450px;
+        padding: 80px;
+        background: #23463f;
+        border-radius: 15px ;
+
+}
+body
+{
+    margin: 0;
+    padding: 0;
+    background-color:#6abadeba;
+    font-family: 'Arial';
+}
+.text-center {
+  text-align: center;
+}
+#buttonid{
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-radius: 17px;
+    padding-left: 7px;
+    color: blue;
+}
+
+h1{
+    text-align: center;
+    color: #277582;
+    padding: 20px;
+    font-family: 'Arial'
+}
+h3{
+    text-align: center;
+    color: #277582;
+    padding: 10px;
+    font-family: 'Arial'
+}
+li{
+    text-align: center;
+    color: #277582;
+    padding: 20px;
+    font-family: 'Arial'
+}
+</style>
+</head>
+<body>
+<h1>Safe Chat</h1>
+<h3>Welcome {% if current_user.is_authenticated %}{{ current_user.username }}</h3><br>{% else %}
+<h3>Already a user? then login by clicking on the below button</h3>
+<div class="text-center">
+<input type=button id="buttonid" onClick="location.href='login'" value='login'>
+</div>
+<h3>New user? then signup by clicking on the below button</h3>
+<div class="text-center">
+<input type=button id="buttonid" onClick="location.href='signup'" value='signup'>
+</div>
+{% endif %}
+
+{% if current_user.is_authenticated %}
+    <h3>Want to create a new room? click on the below botton</h3>
+    <div class="text-center">
+    <input type=button id="buttonid" onClick="location.href='create-room'" value='create room'>
+    </div>
+    <h3>U can see your rooms below</h3>
+    <ul style="list-style-type:none;">
+        {% for room in rooms %}
+            <li><a href="/rooms/{{ room._id.room_id }}">{{ room.room_name }}</a></li>
+        {% endfor %}
+    </ul>
+    <div class="text-center">
+    <input type=button id="buttonid" onClick="location.href='logout'" value='logout'>
+    </div>
+{% endif %}
+</body>
+</html>

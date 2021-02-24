@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Navbar</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body class="bg-white">
+<nav class="navbar  navbar-expand-sm bg-light  fixed-top">
+ <div class="container">
+     <div class="collapse navbar-collapse">
+         <ul class="navbar-nav mr-auto">
+             <li class="nav-item">
+                 <a href="{{url_for('home')}}" class="nav-link">Home</a>
+             </li>
+
+         </ul>
+     </div>
+          <div class="mx-auto order-0 ">
+            <a class="navbar-brand mx-auto text-info" href="#">SafeChat</a>
+          </div>
+     <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                {% if current_user.is_authenticated %}
+                  <li class="nav-item">
+                   <a href="{{url_for('logout')}}" class="nav-link">Logout</a>
+               </li>
+                {% else %}
+                <li class="nav-item">
+                   <a href="{{url_for('signup')}}" class="nav-link">Register</a>
+               </li>
+                <li class="nav-item">
+                   <a href="{{url_for('login')}}" class="nav-link">Login</a>
+               </li>
+                {% endif %}
+
+            </ul>
+     </div>
+ </div>
+</nav>
+<br>
+<br>
+<br>
+
+          {% for room in rooms %}
+            <div class="row container vertical-divider">
+    <div class="col"><a class="text-left" href="/rooms/{{ room._id.room_id }}"><h3 class="text-success">{{ room.room_name }}</h3></a></div>
+
+  </div>
+          {% endfor %}
+</body>
+</html>
