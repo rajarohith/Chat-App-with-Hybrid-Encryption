@@ -13,7 +13,7 @@ login
 
 ![image](https://user-images.githubusercontent.com/59475454/117673427-6c17b280-b1c8-11eb-8f28-5fd568ccb833.png)
 
-create model
+create room
 
 ![image](https://user-images.githubusercontent.com/59475454/117673498-776ade00-b1c8-11eb-92d3-44f4e319e0dc.png)
 
