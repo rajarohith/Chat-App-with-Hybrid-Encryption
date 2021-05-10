@@ -1,126 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<style>
-* {
-  box-sizing: border-box;
-}
-#button1{
-    border-radius: 10px;
-    padding-left: 2px;
-    font-size: 15px;
-    color: blue;
-}
-body
-{
-    margin: 0;
-    padding: 0;
-    background-color:#6abadeba;
-    font-family: 'Arial';
-}
-
-header {
-  padding: 2px;
-  font-size: 15px;
-  color: white;
-  border-style: groove;
-}
-
-left {
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <style>
+    left_vr {
   float: left;
   width: 15%;
-  height: 615px;
+  height: 80vh;
   font-size: 25px;
-  background: #ccc;
-  padding: 30px;
-  border-style: groove;
-}
+  padding: 25px;
+  border-style: solid;
+   }
 msgs {
-  float: left;
-  padding: 20px;
-  width: 85%;
+  float: right;
+  padding: 8px;
+  width: 80%;
   font-size: 20px;
   background-color: white;
-  height: 615px;
-  border-style: groove;
+  height: 85vh;
+  border-style: none;
 }
-.nav h1{
-    text-align: center;
-    color: #277582;
-    padding: 20px;
-    font-family: 'Arial'
-}
-.nav button{
-position: absolute;
-top: 40px;
-right: 25px;
-font-size:20px;
-}
-</style>
+    </style>
 </head>
 <body>
-<header>
-    <div class="nav" >
-        <h1>Safe Chat</h1>
-        <button><a href="{{url_for('logout')}}">Logout</a></button>
+<div class="head">
+    <a href="{{url_for('home')}}">Home</a>
+    <span style="display:inline-block; width: 610px;"></span>
+    <label><b>Safe Chat</b></label>
     </div>
-
-</header>
+    <div class="nav2" >
+        <a><b> {{current_user.username}}</b></a>
+        </div>
+     <div class="nav1" >
+         <a href="{{url_for('logout')}}">Logout</a>
+     </div>
+</div>
 <section>
-  <left>
-<h3>Members</h3>
-<ul>
+  <left_vr>
+      {% for room in rooms %}
+            <div class="row container vertical-divider">
+    <div class="col"><a class="text-left" href="/rooms/{{ room._id.room_id }}"><h4 class="text-success">{{ room.room_name }}</h4></a></div>
+
+  </div>
+          {% endfor %}
+      <h4>{{room.name}}</h4>
+<h4>Members</h4>
+<ul type="none">
     {% for member in room_members %}
-        <li>{{ member._id.username }}</li>
+        <li><img src="{{ url_for('static', filename='images/user1.png')}} " alt="user"  width="25" height="25">{{ member._id.username }}</li>
     {% endfor %}
 </ul>
-<input type=button id="button1" onClick="location.href='edit'" value='edit room members'>
-  </left>
+<input type=button id="button1" onClick="location.href='edit'" value='edit room'>
+  </left_vr>
     <msgs>
 <button type="button" id="load_older_messages_btn">Load Older Messages</button>
+        <br><br>
 <div id="messages">
-    {% for message in messages %}
-        <div><b>{{ message.sender }}&nbsp;[{{ message.created_at }}]:&nbsp;</b> {{ message.text }}</div>
+    {% for msg in messages %}
+        <div><b>{{ msg.sender }}&nbsp;[{{ msg.created_at }}]:&nbsp;</b> {{ msg.text }}</div>
     {% endfor %}
 </div>
 
 <form id="message_input_form">
-    <input type="text" size="30" id="message_input" placeholder="Enter your message here">
+    <input type="text" size="30" id="msg_ip" placeholder="Enter your message here" name="message_send">
     <button id="button1" type="submit">Send</button>
 </form>
 
     </msgs>
+</section>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
 <script>
-    const socket = io.connect("http://127.0.0.1:5000");
-
-    socket.on('connect', function () {
-        socket.emit('join_room', {
+    const skt = io.connect("http://127.0.0.1:5000");
+    skt.on('connect', function () {
+        skt.emit('joined_room', {
             username: "{{ username }}",
             room: "{{ room._id }}"
         });
 
-        let message_input = document.getElementById('message_input');
-
+        let msg_ip = document.getElementById('msg_ip');
         document.getElementById('message_input_form').onsubmit = function (e) {
             e.preventDefault();
-            let message = message_input.value.trim();
-            if (message.length) {
-                socket.emit('send_message', {
+            let msg = msg_ip.value.trim();
+            msg_ip.value = '';
+            msg_ip.focus();
+            if (msg.length) {
+                skt.emit('send_message', {
                     username: "{{ username }}",
                     room: "{{ room._id }}",
-                    message: message
+                    message: msg
                 })
             }
-            message_input.value = '';
-            message_input.focus();
+
         }
     });
 
     let page = 0;
 
-    document.getElementById("load_older_messages_btn").onclick = (e) => {
+   document.getElementById("load_older_messages_btn").onclick = (e) => {
         page += 1;
         fetch("/rooms/{{ room._id }}/messages?page=" + page, {
             method: 'GET',
@@ -129,46 +106,46 @@ font-size:20px;
             }
         }).then(response => {
             response.json().then(messages => {
-                messages.reverse().forEach(message => prepend_message(message.text, message.sender, message.created_at));
+                messages.reverse().forEach(msg => prepend_msg(msg.text, msg.sender, msg.created_at));
             })
         })
     };
 
-    function prepend_message(message, username, created_at) {
-        const newNode = document.createElement('div');
-        newNode.innerHTML = `<b>${username}&nbsp;[${created_at}]:&nbsp;</b> ${message}`;
+    function prepend_msg(msg, username, created_at) {
+        const nn = document.createElement('div');
+        nn.innerHTML = `<b>${username}&nbsp;[${created_at}]:&nbsp;</b> ${msg}`;
         const messages_div = document.getElementById('messages');
-        messages_div.insertBefore(newNode, messages_div.firstChild);
+        messages_div.insertBefore(nn, messages_div.firstChild);
     }
 
     window.onbeforeunload = function () {
-        socket.emit('leave_room', {
+        skt.emit('left_room', {
             username: "{{ username }}",
             room: "{{ room._id }}"
         })
     };
 
-    socket.on('receive_message', function (data) {
-        console.log(data);
-        const newNode = document.createElement('div');
-        newNode.innerHTML = `<b>${data.username}&nbsp;[${data.created_at}]:&nbsp;</b> ${data.message}`;
-        document.getElementById('messages').appendChild(newNode);
+    skt.on('receive_message', function (d) {
+        console.log(d);
+        const nn = document.createElement('div');
+        nn.innerHTML = `<b>${d.username}&nbsp;[${d.created_at}]:&nbsp;</b> ${d.message}`;
+        document.getElementById('messages').appendChild(nn);
     });
 
-    socket.on('join_room_announcement', function (data) {
-        console.log(data);
-        if (data.username !== "{{ username }}") {
-            const newNode = document.createElement('div');
-            newNode.innerHTML = `<b>${data.username}</b> has joined the room`;
-            document.getElementById('messages').appendChild(newNode);
+    skt.on('joined_room_action', function (d) {
+        console.log(d);
+        if (d.username !== "{{ username }}") {
+            const nn= document.createElement('div');
+            nn.innerHTML = `<b>${d.username}</b> has joined the room`;
+            document.getElementById('messages').appendChild(nn);
         }
     });
 
-    socket.on('leave_room_announcement', function (data) {
-        console.log(data);
-        const newNode = document.createElement('div');
-        newNode.innerHTML = `<b>${data.username}</b> has left the room`;
-        document.getElementById('messages').appendChild(newNode);
+    skt.on('left_room_action', function (d) {
+        console.log(d);
+        const nn = document.createElement('div');
+        nn.innerHTML = `<b>${d.username}</b> has left the room`;
+        document.getElementById('messages').appendChild(nn);
     });
 </script>
 </html>

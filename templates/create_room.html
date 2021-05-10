@@ -1,86 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-body
-{
-    margin: 0;
-    padding: 0;
-    background-color:#6abadeba;
-    font-family: 'Arial';
-}
-.create{
-        width: 350px;
-        overflow: hidden;
-        margin: auto;
-        margin: 20 0 0 450px;
-        padding: 80px;
-        background: #23463f;
-        border-radius: 15px ;
-
-}
-h1{
-    text-align: center;
-    color: #277582;
-    padding: 20px;
-    font-family: 'Arial'
-}
-h3{
-    text-align: center;
-    color: #277582;
-    padding: 20px;
-    font-family: 'Arial'
-}
-label{
-    color: #08ffd1;
-    font-size: 17px;
-}
-#room_name{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
-}
-#room_members{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
-
-}
-#create_room{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 17px;
-    padding-left: 7px;
-    color: blue;
-}
-
-</style>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
 </head>
 <body>
-    <h1>Safe Chat</h1>
+    <div class="head">
+    <a href="{{url_for('home')}}">Home</a>
+    <span style="display:inline-block; width: 610px;"></span>
+    <label><b>Safe Chat</b></label>
+        </div>
+    <div class="nav2" >
+        <a><b> {{current_user.username}}</b></a>
+        </div>
+        <div class="nav1" >
+         <a href="{{url_for('logout')}}">Logout</a>
+     </div>
+    </div>
     <h3>Fill the room details for creation</h3>
     <div class="create">
     <form id="create" method="post">
-        <label><b>Room Name
+        <b>Room Name
         </b>
-        </label>
         <br><br>
         <input type="text" name="room_name" id="room_name" placeholder="room name">
         <br><br>
-        <label><b>Room Members
+        <b>Room Members
         </b>
-        </label>
         <br><br>
         <input type="text" name="members" id="room_members" placeholder="room members">
         <br><br>
-        <button id="create_room" type="submit">Create</button>
+        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<button id="create_room" type="submit">Create</button>
         <br><br>
     </form>
+        <h3>{{ message }}</h3>
 </div>
 </body>
 </html>

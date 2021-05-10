@@ -1,0 +1,179 @@
+.head{
+  height: 25px;
+  padding: 25px 25px;
+  width: 100%;
+  background-color: #190d3c;
+  font-size: 20px;
+}
+body
+{
+    margin: 0;
+    padding: 0;
+    background: rgba(0, 128, 0, 0.02);
+    font-family: 'Arial';
+}
+
+main {
+  float: left;
+  padding: 20px;
+  width: 85%;
+  font-size: 20px;
+  background-color: white;
+  height: 78vh;
+  border-style: solid;
+}
+a
+{
+color:#70bfeb;
+}
+.center
+{
+ display:block;
+ margin-left:auto;
+ margin-right:auto;
+ width=50%;
+}
+.nav a{
+position: absolute;
+top: 40px;
+left: 150px;
+font-size:20px;
+}
+
+.nav1 a{
+position: absolute;
+top: 40px;
+right: 25px;
+font-size:20px;
+}
+.nav2 a{
+position: absolute;
+top: 40px;
+right: 150px;
+font-size:25px;
+}
+
+.nav3 a{
+position: absolute;
+top: 40px;
+right: 120px;
+font-size:20px;
+}
+label
+{
+color:#70bfeb;
+font-size:25px;
+}
+
+b
+{
+font-size:20px;
+}
+.login{
+        width: 350px;
+        margin: auto;
+        margin: 20 0 0 450px;
+}
+.signup{
+        width: 350px;
+        margin: auto;
+        margin: 20 0 0 450px;
+}
+.create{
+        width: 350px;
+        margin: auto;
+        margin: 20 0 0 450px;
+
+}
+.edit_room{
+        width: 350px;
+        margin: auto;
+        margin: 20 0 0 450px;
+
+}
+
+h3{
+    text-align: center;
+    color: #277582;
+    padding: 20px;
+    font-family: 'Arial'
+}
+#username{
+    width: 300px;
+    height: 30px;
+    border: solid;
+    border-radius: 3px;
+    padding-left: 8px;
+    color:#190d3c;
+}
+#email{
+    width: 300px;
+    height: 30px;
+    border: solid;
+    border-radius: 3px;
+    padding-left: 8px;
+    color:#190d3c;
+}
+#password{
+    width: 300px;
+    height: 30px;
+    border: solid;
+    border-radius: 3px;
+    padding-left: 8px;
+    color:#190d3cv;
+}
+#log{
+    width: 100px;
+    height: 30px;
+    border: solid;
+    border-radius: 17px;
+    padding-left: 7px;
+
+}
+#sgnp{
+    width: 100px;
+    height: 30px;
+    border: solid;
+    border-radius: 17px;
+    padding-left: 7px;
+}
+#room_name{
+    width: 300px;
+    height: 30px;
+    border: solid;
+    border-radius: 3px;
+    padding-left: 8px;
+}
+#room_members{
+    width: 300px;
+    height: 30px;
+    border: solid;
+    border-radius: 3px;
+    padding-left: 8px;
+
+}
+#create_room{
+    width: 100px;
+    height: 30px;
+    border: solid;
+    border-radius: 17px;
+    padding-left: 7px;
+}
+#btnid{
+    width: 150px;
+    height: 30px;
+    border: solid;
+    border-radius: 17px;
+    padding-left: 7px;
+}
+#button1{
+    border-radius: 10px;
+    padding-left: 2px;
+    font-size: 15px;
+}
+.nav button{
+position: absolute;
+top: 20px;
+right: 25px;
+font-size:15px;
+}

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='style.css') }}">
+    <style>
+    left {
+  float: left;
+  width: 15%;
+  height: 80vh;
+  font-size: 25px;
+  padding: 30px;
+  border-style: solid;
+   }
+    </style>
+</head>
+<body>
+
+<div class="head">
+    <a href="{{url_for('home')}}">Home</a>
+    <span style="display:inline-block; width: 610px;"></span>
+    <label><b>Safe Chat</b></label>
+    {% if current_user.is_authenticated %}
+    <div class="nav">
+                   <a href="{{url_for('create_room')}}">Create Room</a>
+        </div>
+    <div class="nav2" >
+        <a><b> {{current_user.username}}</b></a>
+        </div>
+    <div class="nav1" >
+                   <a href="{{url_for('logout')}}">Logout</a>
+        </div>
+                {% else %}
+        <Div class="nav3">
+                   <a href="{{url_for('signup')}}">Register</a>
+        </div>
+        <Div class="nav1">
+                   <a href="{{url_for('login')}}">Login</a>
+        </div>
+                {% endif %}
+</div>
+<section>
+{% if not current_user.is_authenticated %}
+    <br><br>
+<img src="{{ url_for('static', filename='images/sc.jpeg')}} " class="center" alt="safechat"  width="780" height="580">
+{% else %}
+     <left>
+         <b>Groups:</b>
+          {% for room in rooms %}
+            <div class="row container vertical-divider">
+    <div class="col"><a href="/rooms/{{ room._id.room_id }}"><h4 class="text-success">{{ room.room_name }}</h4></a></div>
+
+  </div>
+          {% endfor %}
+    </left>
+    <br><br>
+<img src="{{ url_for('static', filename='images/sc.jpeg')}} " class="center" alt="safechat"  width="780" height="500">
+{% endif %}
+    </section>
+</body>
+</html>
